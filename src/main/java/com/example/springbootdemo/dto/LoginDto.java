@@ -1,4 +1,4 @@
-package com.example.springbootdemo.util;
+package com.example.springbootdemo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SearchDto {
-    private String value;
-    private String property;
+public class LoginDto {
+    private String username;
+    private String password;
 }
