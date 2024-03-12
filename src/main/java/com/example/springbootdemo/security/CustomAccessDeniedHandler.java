@@ -1,4 +1,4 @@
-package com.example.springbootdemo.config;
+package com.example.springbootdemo.security;
 
 import com.example.springbootdemo.dto.ErrorDto;
 import com.fasterxml.jackson.databind.ObjectMapper;

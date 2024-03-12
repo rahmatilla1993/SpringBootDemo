@@ -1,4 +1,4 @@
-package com.example.springbootdemo.config;
+package com.example.springbootdemo.security;
 
 import com.example.springbootdemo.entity.AuthUser;
 import com.example.springbootdemo.repository.AuthUserRepository;
