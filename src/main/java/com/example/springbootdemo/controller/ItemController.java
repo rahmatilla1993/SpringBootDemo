@@ -7,7 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/item/*")
+@RequestMapping(value = "/api/item/*")
 public class ItemController {
 
     @PostMapping("create")

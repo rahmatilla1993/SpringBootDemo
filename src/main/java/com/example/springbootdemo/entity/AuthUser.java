@@ -1,5 +1,7 @@
 package com.example.springbootdemo.entity;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,16 +17,20 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Schema(name = "AuthUser", description = "AuthUser entity haqida")
 public class AuthUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Parameter(name = "id", description = "AuthUser entity idsi")
     private String id;
 
     @Column(unique = true, nullable = false)
+    @Parameter(name = "id", description = "AuthUser entity usernyemi")
     private String username;
 
     @Column(nullable = false)
+    @Parameter(name = "id", description = "AuthUser entity paroli")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)

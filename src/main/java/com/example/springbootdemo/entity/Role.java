@@ -2,6 +2,8 @@ package com.example.springbootdemo.entity;
 
 import com.example.springbootdemo.enums.RoleName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
+@Schema(name = "Auth Role", description = "Foydalanuvchi roli")
 public class Role {
 
     @Id
@@ -22,6 +25,7 @@ public class Role {
     private int id;
     @Column(name = "name")
     @Enumerated(EnumType.STRING)
+    @Parameter(name = "Role nomi", description = "Role nomlari")
     private RoleName roleName;
 
     @ManyToMany(mappedBy = "roles")
