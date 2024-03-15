@@ -1,5 +1,6 @@
 package com.example.springbootdemo.controller;
 
+import com.example.springbootdemo.dto.ErrorDto;
 import com.example.springbootdemo.security.JwtTokenUtil;
 import com.example.springbootdemo.dto.AuthDto;
 import com.example.springbootdemo.entity.AuthUser;
@@ -8,8 +9,15 @@ import com.example.springbootdemo.enums.RoleName;
 import com.example.springbootdemo.exception.ExistException;
 import com.example.springbootdemo.repository.AuthUserRepository;
 import com.example.springbootdemo.repository.RoleRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,6 +35,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Auth Controller", description = "Ro'yxatdan o'tish yoki login qilish uchun controller")
 public class AuthController {
 
     private final AuthUserRepository authUserRepository;
@@ -49,6 +58,36 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @Operation(summary = "Ro'yxatdan o'tish")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Foydalanuvchi ro'yxatdan o'tdi!",
+                    content = {
+                            @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = String.class)
+                            )
+                    }),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Bunday username tizimda mavjud!",
+                    content = {
+                            @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ExistException.class)
+                            )
+                    }),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal server error!",
+                    content = {
+                            @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = RuntimeException.class)
+                            )
+                    })
+    })
     public HttpEntity<?> register(@RequestBody AuthDto dto) {
         String username = dto.getUsername();
         authUserRepository.findByUsername(username)
@@ -67,6 +106,36 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "Login qilish")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Foydalanuvchi tizimga kirdi",
+                    content = {
+                            @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = String.class)
+                            )
+                    }),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Username yoki parol xato",
+                    content = {
+                            @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ErrorDto.class)
+                            )
+                    }),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal server error!",
+                    content = {
+                            @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = RuntimeException.class)
+                            )
+                    })
+    })
     public HttpEntity<?> login(@RequestBody AuthDto dto) {
         String username = dto.getUsername();
         var authenticationToken = new UsernamePasswordAuthenticationToken(username, dto.getPassword());
