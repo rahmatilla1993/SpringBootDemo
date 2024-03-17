@@ -1,4 +1,4 @@
-package com.example.springbootdemo.dao;
+package com.example.springbootdemo.async_execution;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Book {
+public class Product {
 
     private int id;
-    private String title;
-    private String description;
-    private String author;
+    private String name;
+    private String category;
     private double price;
 }

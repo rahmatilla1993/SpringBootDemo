@@ -1,0 +1,11 @@
+example:
+  person:
+    id: ${random.long(10,100)}
+    name: 'Alan'
+    age: 22
+  config:
+    env:
+      - dev
+      - prod
+      - qa
+      - test
