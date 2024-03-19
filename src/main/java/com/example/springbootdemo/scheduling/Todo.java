@@ -1,4 +1,4 @@
-package com.example.springbootdemo.dao;
+package com.example.springbootdemo.scheduling;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Book {
-
+public class Todo {
     private int id;
     private String title;
-    private String description;
-    private String author;
-    private double price;
+    private String category;
+    private boolean isDone;
 }
