@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 @RestController
@@ -19,7 +21,17 @@ import java.nio.file.Path;
 public class UploadDownloadController {
 
     private final UploadDao uploadDao;
-    private final Path rootPath = Path.of(System.getProperty("user.home"), "/download");
+    private static final Path rootPath = Path.of(System.getProperty("user.home"), "/downloads");
+
+    static {
+        if (!Files.exists(rootPath)) {
+            try {
+                Files.createDirectory(rootPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
     @Autowired
     public UploadDownloadController(UploadDao uploadDao) {

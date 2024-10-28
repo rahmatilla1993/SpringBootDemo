@@ -23,7 +23,17 @@ public class UploadDao {
 
     private final JdbcTemplate jdbcTemplate;
     private final ItemDao itemDao;
-    private final Path rootPath = Path.of(System.getProperty("user.home"), "/download");
+    private static final Path rootPath = Path.of(System.getProperty("user.home"), "/downloads");
+
+    static {
+        if (!Files.exists(rootPath)) {
+            try {
+                Files.createDirectory(rootPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
     @Autowired
     public UploadDao(JdbcTemplate jdbcTemplate, ItemDao itemDao) {
