@@ -1,3 +1,7 @@
+drop table if exists store;
+drop table if exists item;
+drop table if exists upload;
+
 create table store(
     id serial primary key,
     name varchar not null,
