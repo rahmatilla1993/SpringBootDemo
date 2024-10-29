@@ -23,7 +23,7 @@ public class UploadDao {
 
     private final JdbcTemplate jdbcTemplate;
     private final ItemDao itemDao;
-    private static final Path rootPath = Path.of(System.getProperty("user.home"), "downloads");
+    private static final Path rootPath = Path.of("/app/downloads");
 
     static {
         if (!Files.exists(rootPath)) {
