@@ -21,7 +21,7 @@ import java.nio.file.Path;
 public class UploadDownloadController {
 
     private final UploadDao uploadDao;
-    private static final Path rootPath = Path.of("/app/downloads");
+    private static final Path rootPath = Path.of( System.getProperty("user.home"),"downloads");
 
     static {
         if (!Files.exists(rootPath)) {
